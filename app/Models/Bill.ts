@@ -1,41 +1,30 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from "luxon";
+import { BaseModel,beforeCreate, column } from "@ioc:Adonis/Lucid/Orm";
+import { v4 as uuidv4 } from 'uuid';
 
 export default class Bill extends BaseModel {
+
   
-  @column({ isPrimary: true , columnName:'bill_id'})
-  public billId: number
+  @column({ isPrimary: true, columnName: "invoice_id" })
+  public invoiceId: string;
 
-  @column({columnName: 'customer_name'})
-  public customerName: number
+  @column({ columnName: "customer_name" })
+  public customerName: string;
 
-  @column({columnName: 'product_id'})
-  public productId: number
+  @column.dateTime({ autoCreate: true,columnName:"created_at" })
+  public createdAt: DateTime;
 
-  @column({columnName: 'product_name'})
-  public productName: string
+  @column({ columnName: "total_amount" })
+  public totalAmount: number;
 
-  @column({columnName: 'quantity'})
-  public quantity: number
-
-  @column({columnName: 'unit_price'})
-  public unitPrice: number
-
-  @column({columnName: 'subtotal'})
-  public subtotal: number
-
-  @column({columnName: 'discount'})
-  public discount: number
-
-  @column({columnName: 'total'})
-  public total: number
-
-  @column({columnName: 'payment_method'})
-  public paymentMethod: string
-  
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  @column({ columnName: "payment_method" })
+  public paymentMethod: string;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
+
+  @beforeCreate()
+  public static generateInvoiceId(bill: Bill) {
+    bill.invoiceId = uuidv4();
+  }
 }

@@ -4,16 +4,16 @@ import Stock from "App/Models/Stock";
 export default class StockController {
   public async create({ request, response }: HttpContextContract) {
     const data = request.only([
-      "productName",
+      "product_name",
       "category",
       "brand",
       "supplier",
-      "costPrice",
-      "retailPrice",
+      "cost_price",
+      "retail_price",
       "quantity",
-      "minimumStock",
-      "maximumStock",
-      "reorderPoint",
+      // "minimumStock",
+      "maximum_stock",
+      // "reorderPoint",
     ]);
     const stock = new Stock();
     stock.fill(data);
@@ -22,7 +22,8 @@ export default class StockController {
   }
 
   public async index({ response }: HttpContextContract) {
-    const stocks = await Stock.all();
+    // const stocks = await Stock.all();
+    const stocks = await Stock.query().select('product_id','product_name', 'category', 'brand', 'supplier', 'cost_price', 'retail_price', 'quantity', 'maximum_stock')
     return response.ok(stocks);
   }
 
@@ -34,17 +35,18 @@ export default class StockController {
   public async update({ params, request, response }: HttpContextContract) {
     const stock = await Stock.findOrFail(params.id);
     const data = request.only([
-      "productName",
+      "product_name",
       "category",
       "brand",
       "supplier",
-      "costPrice",
-      "retailPrice",
+      "cost_price",
+      "retail_price",
       "quantity",
-      "minimumStock",
-      "maximumStock",
-      "reorderPoint",
+      // "minimumStock",
+      "maximum_stock",
+      // "reorderPoint",
     ]);
+    console.log('aaaaa ',data,params.id);
     stock.merge(data);
     await stock.save();
     return response.ok(stock);

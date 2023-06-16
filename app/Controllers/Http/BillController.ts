@@ -3,19 +3,20 @@ import Bill from "App/Models/Bill";
 
 export default class BillsController {
   public async create({ request, response }: HttpContextContract) {
-    const data = request.only(["customerName", "totalAmount", "paymentMethod"]);
+    const data = request.only(["customer_name", "total_amount", "payment_method"]);
    
     const bill = new Bill();
-    bill.customerName = data.customerName;
-    bill.totalAmount = data.totalAmount;
-    bill.paymentMethod = data.paymentMethod;
+    bill.customerName = data.customer_name;
+    bill.totalAmount = data.total_amount;
+    bill.paymentMethod = data.payment_method;
     
     await bill.save();
     return response.created(bill);
   }
 
   public async index({ response }: HttpContextContract) {
-    const bills = await Bill.all();
+    // const bills = await Bill.all();
+    const bills = await Bill.query().select('invoice_id','display_id','customer_name','total_amount', 'payment_method','created_at')
     return response.ok(bills);
   }
 

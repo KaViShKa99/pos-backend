@@ -7,6 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
 
       table.string('invoice_id',20).primary()
+      table.string('display_id',20).notNullable()
       table.string('customer_name').notNullable()
       table.float('total_amount')
       // table.float('total_amount').notNullable()

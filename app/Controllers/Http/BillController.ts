@@ -11,7 +11,18 @@ export default class BillsController {
     bill.paymentMethod = data.payment_method;
     
     await bill.save();
-    return response.created(bill);
+    // return response.created(bill);
+    return response.created({
+      data: {
+        invoice_id:bill.invoiceId,
+        display_id: bill.displayId,
+        customer_name: bill.customerName,
+        total_amount: bill.totalAmount,
+        created_at: bill.createdAt,
+        payment_method: bill.paymentMethod,
+      },
+      message: 'Bill created successfully',
+    });
   }
 
   public async index({ response }: HttpContextContract) {
@@ -27,10 +38,21 @@ export default class BillsController {
 
   public async update({ params, request, response }: HttpContextContract) {
     const bill = await Bill.findOrFail(params.id);
-    const data = request.only(["customerName", "totalAmount", "paymentMethod"]);
+    const data = request.only(["customerName", "paymentMethod"]);
     bill.merge(data);
     await bill.save();
-    return response.ok(bill);
+    return response.created({
+      data: {
+        invoice_id:bill.invoiceId,
+        display_id: bill.displayId,
+        customer_name: bill.customerName,
+        total_amount: bill.totalAmount,
+        created_at: bill.createdAt,
+        payment_method: bill.paymentMethod,
+      },
+      message: 'Bill updated successfully',
+    });
+    // return response.ok(bill);
   }
 
   public async delete({ params, response }: HttpContextContract) {

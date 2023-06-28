@@ -1,19 +1,14 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'bills'
+  protected tableName = 'vehicle_details'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
+      table.increments('id').primary();
+      table.string('vehicle_number', 256).notNullable();
+      table.integer('items')
 
-      table.string('invoice_id',20).primary()
-      table.string('display_id',20).notNullable()
-      table.string('customer_name').notNullable()
-      table.decimal('total_amount', 19, 2)
-      // table.float('total_amount').notNullable()
-      table.string('payment_method').notNullable()
-      
-      
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

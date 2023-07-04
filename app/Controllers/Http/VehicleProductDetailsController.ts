@@ -40,6 +40,7 @@ export default class VehicleProductDetailsController {
             'vehicleNumber',
             'product_id',
             'product_name',
+            'quantity'
           ]);
     
 

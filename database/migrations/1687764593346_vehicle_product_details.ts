@@ -9,6 +9,8 @@ export default class extends BaseSchema {
       table.string('vehicle_number',20).references('vehicle_details.vehicle_number').onDelete('CASCADE');
       table.integer('product_id').unsigned().references('stocks.product_id');
       table.string('product_name',256).notNullable();
+      table.integer('quantity').notNullable();
+
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

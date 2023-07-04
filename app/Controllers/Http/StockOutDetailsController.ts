@@ -30,7 +30,9 @@ export default class StockOutDetailsController {
   public async show({ params, response }: HttpContextContract) {
     const productId = params.id;
     const product = await Product.query().where("product_id", productId);
+    // console.log('cc ',product); undefined
     return response.ok(product[0]);
+    // return response.ok(product);
   }
   public async addQuantity({ params, request, response }: HttpContextContract) {
     try {

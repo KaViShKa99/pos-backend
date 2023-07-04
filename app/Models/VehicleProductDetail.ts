@@ -14,7 +14,9 @@ export default class VehicleProductDetail extends BaseModel {
   
   @column({ columnName: "product_name" })
   public productName: string;
-
+  
+  @column({ columnName: "quantity" })
+  public quantity: number;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

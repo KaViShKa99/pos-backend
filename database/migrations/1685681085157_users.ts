@@ -9,10 +9,10 @@ export default class extends BaseSchema {
       table.increments('user_id').primary();
       table.string('user_name',50).notNullable().unique();
       table.string('password',180).notNullable();
-      table.string('first_name',180).notNullable();
-      table.string('last_name',180).notNullable();
-      table.string('role',80).notNullable();
-      table.boolean('active').notNullable();
+      table.string('first_name',180);
+      table.string('last_name',180);
+      table.string('role',80);
+      table.boolean('active');
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

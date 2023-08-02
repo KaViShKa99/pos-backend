@@ -58,6 +58,13 @@ export default class StockController {
     const stock = await Stock.findOrFail(params.id);
     return response.ok(stock);
   }
+  public async getQuanatity({ params, response }: HttpContextContract) {
+    const productDetails = await Stock.query()
+    .where("product_id", params.id)
+    .select("minimum_stock", "quantity","product_name")
+    .first();
+    return response.ok(productDetails);
+  }
 
   public async update({ params, request, response }: HttpContextContract) {
     const stock = await Stock.findOrFail(params.id);

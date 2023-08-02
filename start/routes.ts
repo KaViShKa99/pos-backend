@@ -41,6 +41,7 @@ Route.group(() => {
     "/bill-invoice-id-list",
     "ProductDetailsController.getAllInvoiceId"
   );
+  Route.get("/added-item-quantity/:id", "ProductDetailsController.getProductQuantity");
   Route.get("/bill-items/:id", "ProductDetailsController.show");
   Route.put("/bill-items/:id", "ProductDetailsController.update");
   Route.delete("/bill-items/:id", "ProductDetailsController.delete");
@@ -48,6 +49,7 @@ Route.group(() => {
   Route.post("/stocks", "StockController.create");
   Route.get("/stocks/product-names", "StockController.getProductNameList");
   Route.get("/stocks", "StockController.index");
+  Route.get("/stocks/quntity-details/:id", "StockController.getQuanatity");
   Route.get("/stocks/:id", "StockController.show");
   Route.put("/stocks/:id", "StockController.update");
   Route.delete("/stocks/:id", "StockController.delete");

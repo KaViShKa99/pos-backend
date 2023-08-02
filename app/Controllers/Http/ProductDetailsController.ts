@@ -90,6 +90,31 @@ export default class ProductDetailsController {
     const billItems = await BillItem.query().where("invoice_id", params.id);
     return response.ok(billItems);
   }
+  public async getProductQuantity({ params, response }: HttpContextContract) {
+    // const billItem = await BillItem.findOrFail(params.id);
+    let productTotalQuantity = 0
+
+    const totalQuantities  = await BillItem.query()
+    // .select("quantity")
+    // .where("product_id", params.id)
+    // .groupBy("product_id")
+    // .sum("quantity as totalQuantity");
+    .select(Database.raw('SUM(quantity) as totalQuantity'))
+    .where('product_id', params.id)
+    .groupBy('product_id');
+
+  
+    // const productTotalQuantity = totalQuantities[0] || 0;   
+    if(!!totalQuantities[0]){
+
+      productTotalQuantity = totalQuantities[0].$extras.totalQuantity || 0;
+    }
+    // const tQuantity = totalQuantities[0]['totalQuantity'] || 0; 
+    
+    
+    
+    return response.ok(productTotalQuantity);
+  }
 
   public async update({ params, request, response }: HttpContextContract) {
     const billItem = await BillItem.findOrFail(params.id);
